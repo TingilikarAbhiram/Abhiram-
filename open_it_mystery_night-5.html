@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Open It</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  display:grid;place-items:center;color:#fff;
+  font-family:Georgia,"Times New Roman",serif;
+  background:
+    radial-gradient(circle at 50% 35%,#243b67 0%,#111a36 30%,#070b19 68%,#02040b 100%);
+}
+#sky{position:fixed;inset:0;pointer-events:none}
+.star{
+  position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;
+  opacity:.2;animation:twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle{50%{opacity:1;transform:scale(1.8)}}
+.moon{
+  position:fixed;top:8%;right:10%;width:95px;height:95px;border-radius:50%;
+  background:#f3f5ff;box-shadow:0 0 35px rgba(220,230,255,.45);
+  opacity:.9;
+}
+.container{
+  position:relative;z-index:2;text-align:center;width:min(90%,620px);
+  padding:38px 25px;
+}
+.lock{font:14px Arial,sans-serif;letter-spacing:3px;opacity:.65}
+h1{
+  font-size:clamp(48px,12vw,82px);font-weight:400;margin:16px 0 10px;
+  text-shadow:0 0 28px rgba(180,205,255,.45);
+}
+.subtitle{font:14px Arial,sans-serif;letter-spacing:2px;opacity:.6}
+.open{
+  margin-top:42px;padding:16px 34px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);
+  color:#fff;font-size:15px;letter-spacing:3px;cursor:pointer;
+  backdrop-filter:blur(8px);transition:.3s;
+}
+.open:hover{background:rgba(255,255,255,.17);box-shadow:0 0 30px rgba(150,180,255,.25)}
+.letter{
+  display:none;margin-top:30px;padding:32px 26px;border-radius:22px;
+  background:rgba(5,9,25,.7);border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 20px 70px rgba(0,0,0,.45);
+  animation:appear 1.4s ease forwards;
+}
+@keyframes appear{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.letter h2{font-size:30px;font-weight:400;margin:0 0 20px}
+.message{font-size:19px;line-height:1.8;color:#e8ecf8}
+.signature{margin-top:22px;color:#aebbd8;font-size:15px}
+.hint{position:fixed;bottom:20px;font:11px Arial,sans-serif;opacity:.35;letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<div id="sky"></div>
+<div class="moon"></div>
+
+<div class="container">
+  <div class="lock">PRIVATE • JUST FOR YOU</div>
+  <h1>Open It</h1>
+  <div class="subtitle">There is something waiting for you.</div>
+
+  <button class="open" onclick="openMessage()">OPEN</button>
+
+  <section class="letter" id="letter">
+    <h2>A little message…</h2>
+    <div class="message">
+      Some people quietly become part of your thoughts,
+      even when they aren't around.<br><br>
+      And lately, you've been on my mind. 💙
+    </div>
+    <div class="signature">— Abhiram</div>
+  </section>
+</div>
+
+<div class="hint">A small mystery under the night sky</div>
+
+<script>
+const sky=document.getElementById("sky");
+for(let i=0;i<120;i++){
+  const s=document.createElement("span");
+  s.className="star";
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*100+"%";
+  s.style.animationDelay=Math.random()*3+"s";
+  s.style.animationDuration=(2+Math.random()*4)+"s";
+  sky.appendChild(s);
+}
+function openMessage(){
+  document.querySelector(".open").style.display="none";
+  document.querySelector(".subtitle").style.display="none";
+  document.querySelector(".lock").textContent="MESSAGE UNLOCKED";
+  document.getElementById("letter").style.display="block";
+}
+</script>
+</body>
+</html>
